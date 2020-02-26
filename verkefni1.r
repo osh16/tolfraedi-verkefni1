@@ -13,6 +13,7 @@ median(tolur)
 
 library(ggplot2)
 library(methods)
+options(scipen=5)
 
 # saekjum gognin
 ov <- read.table("husnaedisverd_2017.csv", header=TRUE, sep=";");
@@ -45,5 +46,18 @@ show(p)
 
 # drasl
 # mynd sem synir fermetraverd eigna
-p <- ggplot(data=eignir, aes(x=eignir$fermetraverd, fill=eignir$svfn)) + geom_histogram(50)
+p <- ggplot(data=eignir, aes(x=eignir$fermetraverd, fill=eignir$svfn)) + geom_histogram()# + xlim(c(min(eignir$fermetraverd),600000))
+show(p)
+
+# mynd sem synir byggingarar eigna eftir sveitarfelogum
+p <- ggplot(data=eignir, aes(x=eignir$byggar, fill=eignir$svfn)) + geom_bar()
+show(p)
+
+# Teiknið mynd sem sýnir stærð sérbýla eftir sveitafélögum
+serbyli = dplyr::filter(eignir, grepl("Sérbýli", eignir$teg_eign_groft))
+p <- ggplot(data=serbyli, aes(x=serbyli$birtm2, fill=serbyli$svfn)) + geom_histogram()
+show(p)
+
+# Teiknið mynd sem sýnir fermetraverð íbúða eftir sveitafélögum
+p <- ggplot(data=eignir, aes(x=eignir$fermetraverd, fill=eignir$svfn)) + geom_bar()
 show(p)
