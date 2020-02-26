@@ -61,3 +61,20 @@ show(p)
 # Teiknið mynd sem sýnir fermetraverð íbúða eftir sveitafélögum
 p <- ggplot(data=eignir, aes(x=eignir$fermetraverd, fill=eignir$svfn)) + geom_bar()
 show(p)
+
+# p)
+medal_fverd_eignir <- mean(eignir$fermetraverd)
+stadal_fverd_eignir <- sd(eignir$fermetraverd)
+Meðaltal fermetraverðs á eignunum er `r mean(eignir$fermetraverd)` og staðalfrávikið er `r sd(eignir$fermetraverd)`
+
+# q)
+kop = dplyr::filter(eignir, grepl("Kopavogur", eignir$svfn))
+gar = dplyr::filter(eignir, grepl("Gardabaer", eignir$svfn))
+nes = dplyr::filter(eignir, grepl("Seltjarnarnes", eignir$svfn))
+mean(kop$byggar, na.rm=TRUE)
+mean(gar$byggar, na.rm=TRUE)
+mean(nes$byggar, na.rm=TRUE)
+
+# r)
+badkor <- dplyr::filter(eignir,teg_eign_groft=="Sérbýli",fjbkar==2)
+nrow(badkor)
