@@ -11,23 +11,21 @@ median(tolur)
 # ===========================
 #"kaupverd";"teg_eign";"svfn";"byggar";"efstah";"haednr";"fjibmhl";"fjmib";"lyfta";"birtm2";"fjhaed";"fjbkar";"fjsturt";"fjklos";"fjeld";"fjherb";"fjstof";"fjgeym";"matssvaedi";"undirmatssvaedi"
 
-library(tidyverse)
+library(ggplot2)
+library(methods)
 
 # saekjum gognin
 ov <- read.table("husnaedisverd_2017.csv", header=TRUE, sep=";");
 colnames(ov)
 
 # breytum kaupverdi i alvoru verd
-kaupverd_kr = (ov$kaupverd)*1000
+ov$kaupverd = ov$kaupverd*1000
 
 # hversu margir fermetrar hver ibud hefur
-fermetrar = ov$birtm2
-
-# verd per fermeter
-fermetra_verd = kaupverd_kr/fermetrar
+ov$fermetraverd = ov$kaupverd/ov$birtm2
 
 # skiptum ur fjorum flokkum i tvo
-teg_eign_groft <- forcats::fct_recode(ov$teg_eign, Sérbýli="Einbýlishús", Sérbýli="Parhús", Sérbýli="Raðhús", Íbúð="Íbúðareign")
+ov$teg_eign_groft <- forcats::fct_recode(ov$teg_eign, Sérbýli="Einbýlishús", Sérbýli="Parhús", Sérbýli="Raðhús", Íbúð="Íbúðareign")
 
 # kodar fyrir kopav, seltjarnarn, og gardab
 sveitarfelag <- c(1000,1100,1300)
@@ -41,6 +39,11 @@ eignir$svfn[eignir$svfn == 1300] = "Gardabaer"
 # breytum ur talnabreytum i flokkabreytur
 eignir$svfn = factor(eignir$svfn, levels=c("Kopavogur","Seltjarnarnes","Gardabaer"))
 
-ggplot(data=eignir, aes(svfn))+geom_bar()
+# mynd sem synir fjolda eigna i sveitarfelogunum 
+p <- ggplot(data=eignir, aes(eignir$svfn, fill=teg_eign_groft)) + geom_bar()
+show(p)
 
-
+# drasl
+# mynd sem synir fermetraverd eigna
+p <- ggplot(data=eignir, aes(x=eignir$fermetraverd, fill=eignir$svfn)) + geom_histogram(50)
+show(p)
