@@ -78,3 +78,20 @@ mean(nes$byggar, na.rm=TRUE)
 # r)
 badkor <- dplyr::filter(eignir,teg_eign_groft=="Sérbýli",fjbkar==2)
 nrow(badkor)
+
+# s)
+prop.table(table(eignir$teg_eign_groft, eignir$svfn))
+table(eignir$teg_eign_groft, eignir$svfn)
+
+# t)
+prop.table(table(eignir$teg_eign_groft, eignir$svfn))
+
+# u)
+eignir %>%
+  group_by(svfn,teg_eign_groft) %>%
+  summarise(meðaltal = mean(fermetraverd), miðgildi = median(fermetraverd), staðalfrávik = sd(fermetraverd),fjoldi=n())
+
+# v)
+eignir %>%
+  group_by(svfn,teg_eign_groft="Sérbýli") %>%
+  summarise(meðaltal = mean(birtm2), miðgildi = median(birtm2), staðalfrávik = sd(birtm2))
