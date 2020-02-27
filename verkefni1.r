@@ -62,6 +62,9 @@ show(p)
 p <- ggplot(data=eignir, aes(x=eignir$fermetraverd, fill=eignir$svfn)) + geom_bar()
 show(p)
 
+# n)
+ggplot(data=eignir, aes(birtm2, kaupverd)) + geom_point() + facet_grid(.~svfn)
+
 # p)
 medal_fverd_eignir <- mean(eignir$fermetraverd)
 stadal_fverd_eignir <- sd(eignir$fermetraverd)
