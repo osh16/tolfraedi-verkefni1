@@ -52,7 +52,7 @@ eignir$svfn = factor(eignir$svfn, levels=c("Kopavogur","Seltjarnarnes","Gardabae
 h)
 Teiknið mynd sem sýnir fjölda eigna í sveitafélögunum þremur.
 ```{r}
-ggplot(data=eignir, aes(eignir$svfn, fill=teg_eign_groft)) + geom_bar()
+ggplot(data=eignir, aes(eignir$svfn)) + geom_bar() + labs(x='Sveitafélög', y="Fjöldi")
 ```
 
 
@@ -63,7 +63,7 @@ Teiknið mynd sem sýnir fjölda eigna í sveitafélögunum þremur skipt upp ef
 
 
 ```{r}
-ggplot(data=eignir, aes(x=eignir$byggar, fill=eignir$svfn)) + geom_bar()
+ggplot(data=eignir, aes(x=eignir$byggar, fill=eignir$svfn)) + geom_bar() + labs(x='Sveitafélög', y= "Fjöldi", fill = "Tegund eignar")
 ```
 
 
@@ -74,9 +74,9 @@ Teiknið mynd sem sýnir fermetraverð eigna. Teiknið aðra mynd sem sýnir kau
 
 ```{r}
 
-ggplot(data=eignir, aes(x=eignir$fermetraverd, fill=eignir$svfn)) + geom_histogram() 
+ggplot(data=eignir, aes(x=eignir$fermetraverd, fill=eignir$svfn)) + geom_histogram()  + labs(x='Fermetraverð', fill = "Sveitafélag") 
 
-ggplot(data=eignir, aes(x=eignir$kaupverd, fill=eignir$svfn)) + geom_histogram()
+ggplot(data=eignir, aes(x=eignir$kaupverd, fill=eignir$svfn)) + geom_histogram() + labs(x='Kaupverð', y= "Fjöldi", fill = "Sveitafélag")
 
 ```
 
@@ -119,21 +119,20 @@ Teiknið mynd sem sýnir stærð eigna og kaupverð skipt upp eftir sveitafélö
 
 
 ```{r}
-ggplot(data=eignir, aes(birtm2, kaupverd)) + geom_point() + facet_grid(.~svfn)
+ggplot(data=eignir, aes(birtm2, kaupverd)) + geom_point() + facet_grid(.~svfn) + labs(x='Fermetrar', y= "Kaupverð")
 ```
 
 
 o)
 Teiknið mynd af einhverju sem ykkur finnst áhugavert að skoða og segið í örfáum orðum hvað myndin sýnir.
 
+Okkur fannst áhugavert að skoða fjölda fermetra á byggingum eftir byggingarári til að sjá hvort hús séu að stækka með tímanum. Myndin sýnir að fjöldi fermetra hækkar stöðugt með hverju ári og nær ákveðnum hápunkti í kringum 1980. Síðan um aldamótin hrynur það algjörlega og fjöldi fermetra á nýjum byggingum fer í sama dúr og um 1950. En eftir það byrjar fermetrafjöldi að rísa aftur og er búinn að ná sama dampi og á "gullárunum" núna um 2020.
+
+
 
 ```{r}
-ggplot(data=ov,aes(x=byggar,y=birtm2)) + geom_point()
+ggplot(data=ov,aes(x=byggar,y=birtm2)) + geom_point() + labs(x='Byggingarár', y= "Fermetrar")
 ```
-
-
-
-Okkur fannst áhugavert að skoða fjölda fermetra á byggingum eftir byggingarári til að sjá hvort hús séu að stækka með tímanum. Myndin sýnir að fjöldi fermetra hækkar stöðugt með hverju ári og nær ákveðnum hápunkti í kringum 1980. Síðan um aldamótin hrynur það algjörlega og fjöldi fermetra á nýjum byggingum fer í sama dúr og um 1950. En eftir það byrjar fermetrafjöldi að rísa aftur og er búinn að ná sama dampi og á "gullárunum" núna um 2020.
 
 
 
