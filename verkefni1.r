@@ -95,6 +95,6 @@ eignir %>%
   summarise(meðaltal = mean(fermetraverd), miðgildi = median(fermetraverd), staðalfrávik = sd(fermetraverd),fjoldi=n())
 
 # v)
-eignir %>%
+eignir %>%ggplot(einbyli) + geom_boxplot(aes(svfn,fermetraverd,fill=svfn)) + xlab('Sveitafelag') + ylab('Fermetraverd') + scale_fill_discrete(name = "Sveitafelag")
   group_by(svfn,teg_eign_groft="Sérbýli") %>%
   summarise(meðaltal = mean(birtm2), miðgildi = median(birtm2), staðalfrávik = sd(birtm2))
