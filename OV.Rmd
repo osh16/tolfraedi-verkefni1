@@ -1,6 +1,6 @@
 ---
 title: "Fyrra R verkefni"
-authors: "Óskar Höskuldsson og Viktor Sigbjörn Víðisson"
+authors: "Óskar Höskuldsson (osh16@hi.is) og Viktor Sigbjörn Víðisson (vsv8@hi.is)"
 output: html_document
 ---
 
@@ -11,6 +11,9 @@ library(ggplot2)
 library(forcats)
 library(dplyr)
 ```
+#Óskar Höskuldsson - osh16@hi.is
+#Viktor Sigbjörn Víðisson - vsv8@hi.is
+
 
 a)
 Búið til verkefni (e. Project) í vinnumöppunni ykkar og nefnið það fyrra_r_verkefni.
@@ -63,7 +66,7 @@ Teiknið mynd sem sýnir fjölda eigna í sveitafélögunum þremur skipt upp ef
 
 
 ```{r}
-ggplot(data=eignir, aes(x=eignir$byggar, fill=eignir$svfn)) + geom_bar() + labs(x='Sveitafélög', y= "Fjöldi", fill = "Tegund eignar")
+ggplot(data=eignir, aes(x=eignir$byggar, fill=eignir$svfn), na.rm=TRUE) + geom_bar() + labs(x='Sveitafélög', y= "Fjöldi", fill = "Tegund eignar")
 ```
 
 
