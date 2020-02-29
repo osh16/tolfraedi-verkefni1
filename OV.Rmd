@@ -87,7 +87,7 @@ Teiknið mynd sem sýnir byggingarár eigna eftir sveitafélögum (þetta á að
 
 
 ```{r}
-ggplot(data=eignir, aes(x=eignir$byggar, fill=eignir$svfn)) + geom_bar()
+ggplot(eignir,aes(x=svfn,y=byggar)) + geom_boxplot() + xlab('Sveitafélag') + ylab('Byggingarár')
 ```
 
 
@@ -97,7 +97,7 @@ Teiknið mynd sem sýnir stærð sérbýla eftir sveitafélögum (þetta á að 
 
 ```{r}
 serbyli = dplyr::filter(eignir, grepl("Sérbýli", eignir$teg_eign_groft))
-ggplot(data=serbyli, aes(x=serbyli$birtm2, fill=serbyli$svfn)) + geom_histogram()
+ggplot(data=serbyli, aes(x=serbyli$svfn, y=serbyli$birtm2)) + geom_boxplot() + xlab('Sveitafélag') + ylab('Stærð sérbýla')
 ```
 
 
@@ -108,7 +108,7 @@ Teiknið mynd sem sýnir fermetraverð íbúða eftir sveitafélögum (þetta á
 
 
 ```{r}
-ggplot(data=eignir, aes(x=fermetraverd, fill=svfn)) + geom_histogram()
+ggplot(eignir,aes(x=svfn,y=fermetraverd)) + geom_boxplot() + xlab('Sveitafélag') + ylab('Fermetraverð')
 ```
 
 
