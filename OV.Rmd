@@ -7,6 +7,7 @@ output: html_document
 ```{r setup, include=FALSE, warning = F, message = F}
 knitr::opts_chunk$set(echo = TRUE)
 options(warn=-1)
+options(scipen=999)
 library(utf8)
 library(ggplot2)
 library(forcats)
