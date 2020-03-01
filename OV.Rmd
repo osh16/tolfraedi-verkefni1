@@ -10,6 +10,7 @@ library(utf8)
 library(ggplot2)
 library(forcats)
 library(dplyr)
+options(warn=-1)
 ```
 #Óskar Höskuldsson - osh16@hi.is
 #Viktor Sigbjörn Víðisson - vsv8@hi.is
@@ -76,9 +77,9 @@ Teiknið mynd sem sýnir fermetraverð eigna. Teiknið aðra mynd sem sýnir kau
 
 ```{r}
 
-ggplot(data=eignir, aes(x=eignir$fermetraverd, fill=eignir$svfn)) + geom_histogram()  + labs(x='Fermetraverð', y= "Fjöldi", fill = "Sveitafélag") 
+ggplot(data=eignir, aes(x=eignir$fermetraverd, fill=eignir$svfn)) + geom_histogram(bins=40)  + labs(x='Fermetraverð', y= "Fjöldi", fill = "Sveitafélag") 
 
-ggplot(data=eignir, aes(x=eignir$kaupverd, fill=eignir$svfn)) + geom_histogram() + labs(x='Kaupverð', y= "Fjöldi", fill = "Sveitafélag")
+ggplot(data=eignir, aes(x=eignir$kaupverd, fill=eignir$svfn)) + geom_histogram(bins=40) + labs(x='Kaupverð', y= "Fjöldi", fill = "Sveitafélag")
 
 ```
 
