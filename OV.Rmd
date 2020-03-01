@@ -68,7 +68,7 @@ ggplot(data=eignir, aes(eignir$svfn), na.rm=TRUE) + geom_bar() + labs(x='Sveitaf
 
 
 ```{r}
-ggplot(data=eignir, aes(x=eignir$byggar, fill=eignir$svfn), na.rm=TRUE) + geom_bar() + labs(x='Sveitafélög', y= "Fjöldi", fill = "Tegund eignar")
+ggplot(data=eignir, aes(x=eignir$svfn, fill=eignir$teg_eign_groft), na.rm=TRUE) + geom_bar() + labs(x='Sveitafélög', y= "Fjöldi", fill = "Tegund eignar")
 ```
 
 
