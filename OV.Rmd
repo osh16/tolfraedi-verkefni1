@@ -76,12 +76,14 @@ Teiknið mynd sem sýnir fermetraverð eigna. Teiknið aðra mynd sem sýnir kau
 
 ```{r}
 
-ggplot(data=eignir, aes(x=eignir$fermetraverd, fill=eignir$svfn)) + geom_histogram()  + labs(x='Fermetraverð', fill = "Sveitafélag") 
+ggplot(data=eignir, aes(x=eignir$fermetraverd, fill=eignir$svfn)) + geom_histogram()  + labs(x='Fermetraverð', y= "Fjöldi", fill = "Sveitafélag") 
 
 ggplot(data=eignir, aes(x=eignir$kaupverd, fill=eignir$svfn)) + geom_histogram() + labs(x='Kaupverð', y= "Fjöldi", fill = "Sveitafélag")
 
 ```
 
+
+Eins og sjá má á myndunum eru gröfin fyrir fermetraverð eigna og grafið fyrir kaupverð bæði hægri skekkt einkreppudreifing.
 
 
 k)
