@@ -6,6 +6,7 @@ output: html_document
 
 ```{r setup, include=FALSE, warning = F, message = F}
 knitr::opts_chunk$set(echo = TRUE)
+options(warn=-1)
 library(utf8)
 library(ggplot2)
 library(forcats)
@@ -14,31 +15,31 @@ library(dplyr)
 #Óskar Höskuldsson - osh16@hi.is
 #Viktor Sigbjörn Víðisson - vsv8@hi.is
 
-a)
-Búið til verkefni (e. Project) í vinnumöppunni ykkar og nefnið það fyrra_r_verkefni.
+####a)
+####Búið til verkefni (e. Project) í vinnumöppunni ykkar og nefnið það fyrra_r_verkefni.
 
-b)
-Lesið gagnaskrána husnaedisverd_2017.csv inn í R/RStudio og geymið í hlut sem ber upphafsstafi þeirra sem verkefnið vinna (ef Gréta Halldórsdóttir og Sigurður Jónsson eru að vinna saman skulu þau nefna hlutinn gs en ef Atli Pétursson er að vinna einn skal hann nefna hlutinn sinn ap). Kannið gerð breytanna og breytið gerð þeirra sem eru ekki af réttri gerð (ef einhverjar).
+####b)
+####Lesið gagnaskrána husnaedisverd_2017.csv inn í R/RStudio og geymið í hlut sem ber upphafsstafi þeirra sem verkefnið vinna (ef Gréta Halldórsdóttir og Sigurður Jónsson eru að vinna saman skulu þau nefna hlutinn gs en ef Atli Pétursson er að vinna einn skal hann nefna hlutinn sinn ap). Kannið gerð breytanna og breytið gerð þeirra sem eru ekki af réttri gerð (ef einhverjar).
 ```{r}
 ov <- read.table("husnaedisverd_2017.csv", header=TRUE, sep=";")
 ```
-c)
-Breytan kaupverd er í þúsundum króna, breytið henni þannig að hún verði í krónum.
+####c)
+####Breytan kaupverd er í þúsundum króna, breytið henni þannig að hún verði í krónum.
 ```{r}
 ov$kaupverd = ov$kaupverd*1000
 ```
-d)
-Búið til nýja breytu í gagnarammanum ykkar sem inniheldur fermetraverð eignanna, nefnið breytuna fermetraverd.
+####d)
+####Búið til nýja breytu í gagnarammanum ykkar sem inniheldur fermetraverð eignanna, nefnið breytuna fermetraverd.
 ```{r}
 ov$fermetraverd = ov$kaupverd/ov$birtm2
 ```
-e)
-Búið til nýja breytu sem þið skulið kalla teg_eign_groft sem byggir á teg_eign breytunni. Breytan á að innihalda tvo flokka: Sérbýli (Einbýlishús, Parhús, Raðhús) og Íbúð (Íbúðareign). Ábending: notið fct_recode() aðferðina.
+####e)
+####Búið til nýja breytu sem þið skulið kalla teg_eign_groft sem byggir á teg_eign breytunni. Breytan á að innihalda tvo flokka: Sérbýli (Einbýlishús, Parhús, Raðhús) og Íbúð (Íbúðareign). Ábending: notið fct_recode() aðferðina.
 ```{r}
 ov$teg_eign_groft <- forcats::fct_recode(ov$teg_eign, Sérbýli="Einbýlishús", Sérbýli="Parhús", Sérbýli="Raðhús", Íbúð="Íbúðareign")
 ```
-f)
-Búið til nýjan gagnaramma (dataframe) sem inniheldur eignir úr þremur sveitafélögum, öðrum en Reykjavík (þið veljið hvaða sveitafélög sjálf). Breytan svfn inniheldur kóða fyrir sveitafélögin. Þið sjáið í skjalinu breytur_2017.txt hvað kóðarnir standa fyrir. Kallið gagnarammann ykkar eignir.
+####f)
+####Búið til nýjan gagnaramma (dataframe) sem inniheldur eignir úr þremur sveitafélögum, öðrum en Reykjavík (þið veljið hvaða sveitafélög sjálf). Breytan svfn inniheldur kóða fyrir sveitafélögin. Þið sjáið í skjalinu breytur_2017.txt hvað kóðarnir standa fyrir. Kallið gagnarammann ykkar eignir.
 ```{r}
 sveitarfelag <- c(1000,1100,1300)
 eignir <- dplyr::filter(ov, svfn %in% sveitarfelag)
@@ -46,21 +47,21 @@ eignir$svfn[eignir$svfn == 1000] = "Kopavogur"
 eignir$svfn[eignir$svfn == 1100] = "Seltjarnarnes"
 eignir$svfn[eignir$svfn == 1300] = "Gardabaer"
 ```
-g)
-Breytið svfn breytunni í eignir gagnarammanum í flokkabreytu og nefnið flokkana með heiti sveitafélaganna.
+####g)
+####Breytið svfn breytunni í eignir gagnarammanum í flokkabreytu og nefnið flokkana með heiti sveitafélaganna.
 ```{r}
 eignir$svfn = factor(eignir$svfn, levels=c("Kopavogur","Seltjarnarnes","Gardabaer"))
 ```
-h)
-Teiknið mynd sem sýnir fjölda eigna í sveitafélögunum þremur.
+####h)
+####Teiknið mynd sem sýnir fjölda eigna í sveitafélögunum þremur.
 ```{r}
-ggplot(data=eignir, aes(eignir$svfn)) + geom_bar() + labs(x='Sveitafélög', y="Fjöldi")
+ggplot(data=eignir, aes(eignir$svfn), na.rm=TRUE) + geom_bar() + labs(x='Sveitafélög', y="Fjöldi")
 ```
 
 
 
-i)
-Teiknið mynd sem sýnir fjölda eigna í sveitafélögunum þremur skipt upp eftir hvort eignirnar eru sérbýli eða íbúðir (þetta á að vera ein mynd, ekki skipt upp í reiti).
+####i)
+####Teiknið mynd sem sýnir fjölda eigna í sveitafélögunum þremur skipt upp eftir hvort eignirnar eru sérbýli eða íbúðir (þetta á að vera ein mynd, ekki skipt upp í reiti).
 
 
 
@@ -69,8 +70,8 @@ ggplot(data=eignir, aes(x=eignir$byggar, fill=eignir$svfn), na.rm=TRUE) + geom_b
 ```
 
 
-j)
-Teiknið mynd sem sýnir fermetraverð eigna. Teiknið aðra mynd sem sýnir kaupverð eigna. Lýsið lögun dreifinganna.
+####j)
+####Teiknið mynd sem sýnir fermetraverð eigna. Teiknið aðra mynd sem sýnir kaupverð eigna. Lýsið lögun dreifinganna.
 
 
 
@@ -86,8 +87,8 @@ ggplot(data=eignir, aes(x=eignir$kaupverd, fill=eignir$svfn)) + geom_histogram()
 Eins og sjá má á myndunum eru gröfin fyrir fermetraverð eigna og grafið fyrir kaupverð bæði hægri skekkt einkreppudreifing.
 
 
-k)
-Teiknið mynd sem sýnir byggingarár eigna eftir sveitafélögum (þetta á að vera ein mynd, ekki skipt upp í reiti).
+####k)
+####Teiknið mynd sem sýnir byggingarár eigna eftir sveitafélögum (þetta á að vera ein mynd, ekki skipt upp í reiti).
 
 
 ```{r}
@@ -95,8 +96,8 @@ ggplot(eignir,aes(x=svfn,y=byggar)) + geom_boxplot() + xlab('Sveitafélag') + yl
 ```
 
 
-l)
-Teiknið mynd sem sýnir stærð sérbýla eftir sveitafélögum (þetta á að vera ein mynd, ekki skipt upp í reiti).
+####l)
+####Teiknið mynd sem sýnir stærð sérbýla eftir sveitafélögum (þetta á að vera ein mynd, ekki skipt upp í reiti).
 
 
 ```{r}
@@ -106,8 +107,8 @@ ggplot(data=serbyli, aes(x=serbyli$svfn, y=serbyli$birtm2)) + geom_boxplot() + x
 
 
 
-m)
-Teiknið mynd sem sýnir fermetraverð íbúða eftir sveitafélögum (þetta á að vera ein mynd, ekki skipt upp í reiti).
+####m)
+####Teiknið mynd sem sýnir fermetraverð íbúða eftir sveitafélögum (þetta á að vera ein mynd, ekki skipt upp í reiti).
 
 
 
@@ -117,8 +118,8 @@ ggplot(eignir,aes(x=svfn,y=fermetraverd)) + geom_boxplot() + xlab('Sveitafélag'
 
 
 
-n)
-Teiknið mynd sem sýnir stærð eigna og kaupverð skipt upp eftir sveitafélögum. Myndin á að innihalda þrjá reiti, einn fyrir hvert sveitafélag (ábending: notið facet_grid() aðferðina). Notið mismunandi liti til að tákna hvort eignirnar eru sérbýli eða íbúðir.
+####n)
+####Teiknið mynd sem sýnir stærð eigna og kaupverð skipt upp eftir sveitafélögum. Myndin á að innihalda þrjá reiti, einn fyrir hvert sveitafélag (ábending: notið facet_grid() aðferðina). Notið mismunandi liti til að tákna hvort eignirnar eru sérbýli eða íbúðir.
 
 
 
@@ -127,8 +128,8 @@ ggplot(data=eignir, aes(birtm2, kaupverd)) + geom_point() + facet_grid(.~svfn) +
 ```
 
 
-o)
-Teiknið mynd af einhverju sem ykkur finnst áhugavert að skoða og segið í örfáum orðum hvað myndin sýnir.
+####o)
+####Teiknið mynd af einhverju sem ykkur finnst áhugavert að skoða og segið í örfáum orðum hvað myndin sýnir.
 
 Okkur fannst áhugavert að skoða fjölda fermetra á byggingum eftir byggingarári til að sjá hvort hús séu að stækka með tímanum. Myndin sýnir að fjöldi fermetra hækkar stöðugt með hverju ári og nær ákveðnum hápunkti í kringum 1980. Síðan um aldamótin hrynur það algjörlega og fjöldi fermetra á nýjum byggingum fer í sama dúr og um 1950. En eftir það byrjar fermetrafjöldi að rísa aftur og er búinn að ná sama dampi og á "gullárunum" núna um 2020.
 
@@ -140,8 +141,8 @@ ggplot(data=ov,aes(x=byggar,y=birtm2)) + geom_point() + labs(x='Byggingarár', y
 
 
 
-p)
-Skrifið í samfelldu máli hvert meðaltal og staðalfrávik fermetraverðs er á eignunum í eignir gagnarammanum ykkar (eitt meðaltal og eitt staðalfrávik). Búið til hluti sem innihalda meðaltalið og staðalfrávikið og notið svo klumpakommur í textanum.
+####p)
+####Skrifið í samfelldu máli hvert meðaltal og staðalfrávik fermetraverðs er á eignunum í eignir gagnarammanum ykkar (eitt meðaltal og eitt staðalfrávik). Búið til hluti sem innihalda meðaltalið og staðalfrávikið og notið svo klumpakommur í textanum.
 
 
 ```{r}
@@ -151,8 +152,8 @@ stadal_fverd_eignir <- sd(eignir$fermetraverd)
 Meðaltal fermetraverðs á eignunum er `r medal_fverd_eignir` og staðalfrávikið er `r stadal_fverd_eignir`
 
 
-q)
-Skrifið í samfelldu máli hver miðgildi byggingarárs eignanna í sveitafélögunum þremur eru (þrjú miðgildi).
+####q)
+####Skrifið í samfelldu máli hver miðgildi byggingarárs eignanna í sveitafélögunum þremur eru (þrjú miðgildi).
 
 ```{r}
 kop = dplyr::filter(eignir, grepl("Kopavogur", eignir$svfn))
@@ -165,8 +166,8 @@ midgildi_byggar_nes <- median(nes$byggar, na.rm=TRUE)
 Miðgildi byggingarárs í Kópavogi er `r midgildi_byggar_kop`. Miðgildi byggingarárs í Garðabæ er `r midgildi_byggar_gar`. Miðgildi byggingarárs á Seltjarnarnesi er `r midgildi_byggar_nes`.
 
 
-r)
-Skrifið í samfelldu máli hversu margar eignir í eignir gagnarammanum ykkar eru sérbýli með tveimur baðkörum. Búið til hlut sem inniheldur fjöldann og notið svo klumpakommur í textanum.
+####r)
+####Skrifið í samfelldu máli hversu margar eignir í eignir gagnarammanum ykkar eru sérbýli með tveimur baðkörum. Búið til hlut sem inniheldur fjöldann og notið svo klumpakommur í textanum.
 
 ```{r}
 badkor <- dplyr::filter(eignir,teg_eign_groft=="Sérbýli",fjbkar==2)
@@ -175,8 +176,8 @@ serbyli_2badkor <- nrow(badkor)
 Fjöldi sérbýla með tveimur baðkörum er `r serbyli_2badkor`
 
 
-s)
-Búið til töflu sem sýnir fjölda eigna í sveitafélögunum þremur eftir gerð eigna (sérbýli eða íbúðir).
+####s)
+####Búið til töflu sem sýnir fjölda eigna í sveitafélögunum þremur eftir gerð eigna (sérbýli eða íbúðir).
 
 ```{r}
 prop.table(table(eignir$teg_eign_groft, eignir$svfn))
@@ -184,16 +185,16 @@ table(eignir$teg_eign_groft, eignir$svfn)
 ```
 
 
-t)
-Búið til töflu sem sýnir hlutfall sérbýla og íbúða í sveitafélögunum þremur. Það á s.s. að vera hægt að lesa hver hlutfall sérbýla og íbúða er í hverju sveitafélagi fyrir sig.
+####t)
+####Búið til töflu sem sýnir hlutfall sérbýla og íbúða í sveitafélögunum þremur. Það á s.s. að vera hægt að lesa hver hlutfall sérbýla og íbúða er í hverju sveitafélagi fyrir sig.
 
 ```{r}
 prop.table(table(eignir$teg_eign_groft, eignir$svfn))
 ```
 
 
-u)
-Búið til töflu sem sýnir meðaltal, miðgildi og staðalfrávik fermetraverðs skipt upp eftir sveitafélagi og tegund eigna (sérbýli eða íbúðir). Sýnið einnig fjölda eigna sem lenda í hverjum flokki í töflunni. Það á t.d. að vera hægt að lesa hvert meðalfermetraverð einbýlishúsa í sveitafélögunum þremur er og hversu mörg þau eru.
+####u)
+####Búið til töflu sem sýnir meðaltal, miðgildi og staðalfrávik fermetraverðs skipt upp eftir sveitafélagi og tegund eigna (sérbýli eða íbúðir). Sýnið einnig fjölda eigna sem lenda í hverjum flokki í töflunni. Það á t.d. að vera hægt að lesa hvert meðalfermetraverð einbýlishúsa í sveitafélögunum þremur er og hversu mörg þau eru.
 
 ```{r}
 eignir %>%
@@ -202,8 +203,8 @@ eignir %>%
 ```
 
 
-v)
-Búið til töflu sem sýnir meðaltal, miðgildi og staðalfrávik stærðar sérbýla skipt upp eftir sveitafélögum (hér eiga íbúðir ekki að vera með).
+####v)
+####Búið til töflu sem sýnir meðaltal, miðgildi og staðalfrávik stærðar sérbýla skipt upp eftir sveitafélögum (hér eiga íbúðir ekki að vera með).
 
 ```{r}
 eignir %>%
